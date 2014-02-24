@@ -28,4 +28,10 @@ public class User {
 	public void setPassword(String password){
 		this.password = password;
 	}
+	
+	// Will be used by the ArrayAdapter in the ListView
+	  @Override
+	  public String toString() {
+	    return mail;
+	  }
 }

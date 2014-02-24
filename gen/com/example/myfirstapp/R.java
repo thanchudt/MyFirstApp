@@ -25,8 +25,9 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int action_search=0x7f080005;
-        public static final int action_settings=0x7f080004;
+        public static final int ListView_SymptomRemedy=0x7f080004;
+        public static final int action_search=0x7f080006;
+        public static final int action_settings=0x7f080005;
         public static final int add=0x7f080002;
         public static final int delete=0x7f080003;
         public static final int edit_message=0x7f080000;
@@ -50,6 +51,7 @@ public final class R {
         public static final int button_delete=0x7f050004;
         public static final int button_send=0x7f050002;
         public static final int edit_message=0x7f050001;
+        public static final int hello=0x7f05000a;
         public static final int hello_world=0x7f050008;
         public static final int title_activity_display_message=0x7f050007;
         public static final int title_activity_main=0x7f050006;
