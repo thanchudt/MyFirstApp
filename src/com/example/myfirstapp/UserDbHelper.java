@@ -1,4 +1,4 @@
-package com.example.myfirstapp;
+/*package com.example.myfirstapp;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -42,3 +42,4 @@ public class UserDbHelper extends SQLiteOpenHelper{
 	}
 	
 }
+*/

@@ -2,7 +2,7 @@ package com.example.myfirstapp;
 
 public class User {
 	private long id;
-	private String mail;
+	private String name;
 	private String password;
 	
 	public long getId(){
@@ -13,12 +13,12 @@ public class User {
 		this.id = id;
 	}
 	
-	public String getMail(){
-		return mail;
+	public String getName(){
+		return name;
 	}
 	
-	public void setMail(String mail){
-		this.mail = mail;
+	public void setName(String name){
+		this.name = name;
 	}
 	
 	public String getPassword(){
@@ -30,8 +30,8 @@ public class User {
 	}
 	
 	// Will be used by the ArrayAdapter in the ListView
-	  @Override
-	  public String toString() {
-	    return mail;
-	  }
+	@Override
+	public String toString() {
+		return name;
+	}
 }
