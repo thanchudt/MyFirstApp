@@ -1,8 +1,8 @@
 package com.example.myfirstapp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,21 +11,37 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class UserActivity extends Activity {
-	private UsersDataSource datasource;
+	private UserDataSource userDataSource;
+	private CategoryDataSource categoryDataSource;
+	private SubjectDataSource subjectDataSource;
+	private LibraryDataSource libraryDataSource;
+	private TestDataSource testDataSource;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_list);
 
-		datasource = new UsersDataSource(this);
-		datasource.open();
+		userDataSource = new UserDataSource(this);
+		userDataSource.open();
+		
+		categoryDataSource = new CategoryDataSource(this);
+		categoryDataSource.open();
+		
+		subjectDataSource = new SubjectDataSource(this);
+		subjectDataSource.open();
+		
+		libraryDataSource = new LibraryDataSource(this);
+		libraryDataSource.open();
+		
+		testDataSource = new TestDataSource(this);
+		testDataSource.open();
 
 		//User user = null;
 		// Save the new comment to the database
 		//user = datasource.createUser("ARERE", "erer");			
 		
-		List<User> values = datasource.getAllUsers();
+		List<User> values = userDataSource.getAllUsers();
 
 		// Use the SimpleCursorAdapter to show the
 		// elements in a ListView
@@ -52,14 +68,21 @@ public class UserActivity extends Activity {
 		@SuppressWarnings("unchecked")
 		//ArrayAdapter<User> adapter = (ArrayAdapter<User>) getListAdapter();
 		User user = null;
+		user = userDataSource.createUser("Hai Dang", "12345678");
+		Category cat = categoryDataSource.createCategory("12");
+		Subject subject = subjectDataSource.createSubject("Chemistry");
+		Library lib = libraryDataSource.createLibrary(subject.getId(), "chemistry\\1.jpg", "Chemistry\\answer\\1.jpg", cat.getId());
+		Date currentDate = new Date(System.currentTimeMillis());
+		Test test = testDataSource.createTest(user.getId(), lib.getId(), currentDate, 10, 1, 10);
+		
 		switch (view.getId()) {
 		case R.id.add:
-			String[] names = new String[] { "Cool", "Very nice", "Hate it" };
-			String[] passwords = new String[] { "Cool", "Very nice", "Hate it" };
-			int nextInt = new Random().nextInt(3);
+			//String[] names = new String[] { "Cool", "Very nice", "Hate it" };
+			//String[] passwords = new String[] { "Cool", "Very nice", "Hate it" };
+			//int nextInt = new Random().nextInt(3);
 			// Save the new comment to the database
-			user = datasource.createUser(names[nextInt], passwords[nextInt]);			
-			//adapter.add(user);
+			//user = datasource.createUser(names[nextInt], passwords[nextInt]);			
+			//adapter.add(user);			
 			break;
 		case R.id.delete:
 			//if (getListAdapter().getCount() > 0) {
@@ -75,13 +98,21 @@ public class UserActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		datasource.open();
+		userDataSource.open();
+		categoryDataSource.open();		
+		subjectDataSource.open();
+		libraryDataSource.open();
+		testDataSource.open();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		datasource.close();
+		userDataSource.close();
+		categoryDataSource.close();		
+		subjectDataSource.close();
+		libraryDataSource.close();
+		testDataSource.close();
 	}
 
 }

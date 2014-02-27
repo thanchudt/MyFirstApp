@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-public class UsersDataSource {
+public class UserDataSource {
 	private SQLiteDatabase database;
 	private DatabaseHelper dbHelper;
 	private String[] allColumns = { DatabaseHelper.COLUMN_ID, 
@@ -19,7 +19,7 @@ public class UsersDataSource {
 	private static final int COLUMN_NAME_INDEX = 1;
 	private static final int COLUMN_PASSWORD_INDEX = 2;
 	
-	public UsersDataSource(Context context){
+	public UserDataSource(Context context){
 		dbHelper = new DatabaseHelper(context);
 	}
 	
@@ -31,9 +31,9 @@ public class UsersDataSource {
 		dbHelper.close();
 	}
 	
-	public User createUser(String mail, String password) {
+	public User createUser(String name, String password) {
 		ContentValues values = new ContentValues();
-		values.put(DatabaseHelper.COLUMN_USER_NAME, mail);
+		values.put(DatabaseHelper.COLUMN_USER_NAME, name);
 		values.put(DatabaseHelper.COLUMN_USER_PASSWORD, password);
 		long insertId = database.insert(DatabaseHelper.TABLE_USER, null, values);
 		Cursor cursor = database.query(DatabaseHelper.TABLE_USER, 
