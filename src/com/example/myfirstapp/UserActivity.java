@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class UserActivity extends Activity {
+	//private SQLiteDatabase database;
 	private UserDataSource userDataSource;
 	private CategoryDataSource categoryDataSource;
 	private SubjectDataSource subjectDataSource;
@@ -22,6 +24,10 @@ public class UserActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_list);
 
+		//Our key helper
+        //DatabaseHelper dbOpenHelper = new DatabaseHelper(this, DatabaseHelper.DB_NAME);
+        //database = dbOpenHelper.openDataBase();
+        
 		userDataSource = new UserDataSource(this);
 		userDataSource.open();
 		

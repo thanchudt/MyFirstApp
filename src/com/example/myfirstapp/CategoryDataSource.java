@@ -24,7 +24,8 @@ public class CategoryDataSource{
 	}
 	
 	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
+		//database = dbHelper.getWritableDatabase();
+		database = dbHelper.getDb();
 	}
 	
 	public void close() {

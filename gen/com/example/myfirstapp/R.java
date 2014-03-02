@@ -21,22 +21,29 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_action_search=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
+        public static final int cong_thuc_hoa=0x7f020000;
+        public static final int cong_thuc_hoa_answer=0x7f020001;
+        public static final int ic_action_search=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
         public static final int ListView_SymptomRemedy=0x7f080004;
-        public static final int action_search=0x7f080006;
-        public static final int action_settings=0x7f080005;
+        public static final int action_search=0x7f080009;
+        public static final int action_settings=0x7f080008;
         public static final int add=0x7f080002;
+        public static final int btnChangeImage=0x7f080007;
         public static final int delete=0x7f080003;
         public static final int edit_message=0x7f080000;
         public static final int group=0x7f080001;
+        public static final int imageView1=0x7f080006;
+        public static final int textView1=0x7f080005;
     }
     public static final class layout {
         public static final int activity_display_message=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int user_list=0x7f030002;
+        public static final int activity_prepop_sqlite_db=0x7f030002;
+        public static final int activity_test=0x7f030003;
+        public static final int user_list=0x7f030004;
     }
     public static final class menu {
         public static final int display_message=0x7f070000;
