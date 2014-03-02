@@ -61,7 +61,7 @@ public class UserActivity extends Activity {
 		{
 			message.add(values.get(i).toString());
 		}
-		ListView remedyList = (ListView) findViewById(R.id.ListView_SymptomRemedy);
+		ListView remedyList = (ListView) findViewById(R.id.ListView_SymptomRemedy);		
 	    //remedyList.setTextFilterEnabled(true);
 	    //ArrayAdapter<User> adapt = new ArrayAdapter<User>(this, android.R.layout.simple_list_item_1, values);
 		ArrayAdapter<String> adapt = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, message);

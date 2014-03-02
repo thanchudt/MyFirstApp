@@ -21,10 +21,14 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int cong_thuc_hoa=0x7f020000;
-        public static final int cong_thuc_hoa_answer=0x7f020001;
-        public static final int ic_action_search=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
+        public static final int answer1=0x7f020000;
+        public static final int answer2=0x7f020001;
+        public static final int cong_thuc_hoa=0x7f020002;
+        public static final int cong_thuc_hoa_answer=0x7f020003;
+        public static final int ic_action_search=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int question1=0x7f020006;
+        public static final int question2=0x7f020007;
     }
     public static final class id {
         public static final int ListView_SymptomRemedy=0x7f080004;
