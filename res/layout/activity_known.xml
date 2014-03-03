@@ -14,23 +14,31 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/cong_thuc_hoa" />
-	    
-    <Button
-        android:id="@+id/btnKnown"
+        />
+	
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="Trả Lời:" />
+    
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
-        android:onClick="known"
-        android:text="Biết"/>
+        android:layout_height="wrap_content"
+        />
+    
     <Button
-        android:id="@+id/btnUnknown"
+        android:id="@+id/btnYes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="known"
+        android:text="Ðã trả lời giống đáp án" />
+    
+    <Button
+        android:id="@+id/btnNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="unknown"
-        android:text="Không biết" />    
-    <Button
-        android:id="@+id/btnChangeImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Change Image" />
+        android:text="Ðã trả lời không giống đáp án" />
 </LinearLayout>
