@@ -15,7 +15,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/cong_thuc_hoa" />
-	    
+	<TextView
+        android:id="@+id/textViewDifficultLevel"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="Ðộ Khó:" />    
+    <ImageView
+        android:id="@+id/imageViewDifficultLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
     <Button
         android:id="@+id/btnKnown"
         android:layout_width="wrap_content"
@@ -28,9 +37,9 @@
         android:layout_height="wrap_content"
         android:onClick="unknown"
         android:text="Không biết" />    
-    <Button
+    <!--<Button
         android:id="@+id/btnChangeImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Image" />
+        android:text="Change Image" />-->
 </LinearLayout>

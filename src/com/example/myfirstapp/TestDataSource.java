@@ -49,7 +49,7 @@ public class TestDataSource {
 		values.put(DatabaseHelper.COLUMN_TEST_LAST_TEST_DATE, dateFormat.format(last_test_date));
 		values.put(DatabaseHelper.COLUMN_TEST_MARK, mark);
 		values.put(DatabaseHelper.COLUMN_TEST_TIMES, times);
-		values.put(DatabaseHelper.COLUMN_TEST_TOTAL_MARK, times);
+		values.put(DatabaseHelper.COLUMN_TEST_TOTAL_MARK, total_mark);
 		
 		long insertId = database.insert(DatabaseHelper.TABLE_TEST, null, values);
 		Cursor cursor = database.query(DatabaseHelper.TABLE_TEST, 
@@ -60,10 +60,69 @@ public class TestDataSource {
 		return newTest;
 	}
 
+	@SuppressLint("SimpleDateFormat")
+	public Test createTest(long user_id, long library_id, Date last_test_date, long mark) {
+		Test test = getTest(user_id, library_id);
+		if(test == null)
+			return createTest(user_id, library_id, last_test_date, mark, 1, mark);
+		else
+			return updateTest(test.getId(), last_test_date, mark, test.getTimes() + 1, test.getTotalMark() + mark);					
+	}
+	
+	public Test getTest(long id){
+		Test test = null;
+		
+		Cursor cursor = database.query(DatabaseHelper.TABLE_TEST, allColumns, DatabaseHelper.COLUMN_ID + " = ?", new String[] { Long.toString(id) }, null, null, null);
+		
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			test = cursorToTest(cursor);
+			cursor.moveToNext();
+		}
+		
+		//make sure to close the cursor
+		cursor.close();
+		return test;
+	}
+	
+	public Test getTest(long user_id, long library_id){
+		Test test = null;
+		
+		Cursor cursor = database.query(DatabaseHelper.TABLE_TEST, allColumns, 
+				DatabaseHelper.COLUMN_TEST_USER_ID + " = ? AND " + DatabaseHelper.COLUMN_TEST_LIBRARY_ID + " = ?", new String[] { Long.toString(user_id), Long.toString(library_id) }, null, null, null);
+		
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			test = cursorToTest(cursor);
+			cursor.moveToNext();
+		}
+		
+		//make sure to close the cursor
+		cursor.close();
+		return test;
+	}
+	
 	public void deleteTest(Test test){
 		long id = test.getId();
 		System.out.println("Test deleted with id: " + id);
 		database.delete(DatabaseHelper.TABLE_TEST, DatabaseHelper.COLUMN_ID + " = " + id, null);
+	}
+	
+	@SuppressLint("SimpleDateFormat")
+	public Test updateTest(long id, Date last_test_date, long mark, long times, long total_mark){
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		ContentValues values = new ContentValues();
+		values.put(DatabaseHelper.COLUMN_TEST_LAST_TEST_DATE, dateFormat.format(last_test_date));
+		values.put(DatabaseHelper.COLUMN_TEST_MARK, mark);
+		values.put(DatabaseHelper.COLUMN_TEST_TIMES, times);
+		values.put(DatabaseHelper.COLUMN_TEST_TOTAL_MARK, total_mark);		
+		long updateId = database.update(DatabaseHelper.TABLE_TEST, values, DatabaseHelper.COLUMN_ID + " = ?", new String[] { Long.toString(id) });		
+		Cursor cursor = database.query(DatabaseHelper.TABLE_TEST, 
+				allColumns, DatabaseHelper.COLUMN_ID + " = " + updateId, null, null, null, null);
+		cursor.moveToFirst();
+		Test newTest = cursorToTest(cursor);
+		cursor.close();
+		return newTest;
 	}
 	
 	public List<Test> getAllTests(){

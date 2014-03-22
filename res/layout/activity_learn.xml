@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/textViewUserLevel"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="@string/user_level"/>
+    <ImageView
+        android:id="@+id/imageViewContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+	<TextView
+        android:id="@+id/textViewDifficultLevel"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/difficult_level" />    
+    <ImageView
+        android:id="@+id/imageViewDifficultLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnRemember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.29"
+            android:onClick="remember"
+            android:text="@string/remember" />
+
+        <Button
+            android:id="@+id/btnMiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.20"
+            android:onClick="miss"
+            android:text="@string/miss" />
+
+    </LinearLayout>
+
+</LinearLayout>

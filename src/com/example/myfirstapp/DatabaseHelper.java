@@ -26,6 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	public static final String TABLE_SUBJECT = "subject";
 	public static final String TABLE_LIBRARY = "library";	
 	public static final String TABLE_TEST = "test";
+	public static final String TABLE_KNOWLEDGE = "knowledge";
+	public static final String TABLE_LEARN = "learn";
 	
 	// Common column names
 	public static final String COLUMN_ID = "_id";
@@ -54,8 +56,21 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	public static final String COLUMN_TEST_MARK = "mark";
 	public static final String COLUMN_TEST_TIMES = "times";
 	public static final String COLUMN_TEST_TOTAL_MARK = "total_mark";
+	
+	// KNOWLEDGE Table - column names
+	public static final String COLUMN_KNOWLEDGE_SUBJECT_ID = "subject_id";
+	public static final String COLUMN_KNOWLEDGE_CONTENT = "content";
+	public static final String COLUMN_KNOWLEDGE_CATEGORY_ID = "category_id";
 		
-    // Table Create Statements
+	// LEARN Table - column names
+	public static final String COLUMN_LEARN_USER_ID = "user_id";
+	public static final String COLUMN_LEARN_KNOWLEDGE_ID = "knowledge_id";
+	public static final String COLUMN_LEARN_LAST_LEARN_DATE = "last_learn_date";
+	public static final String COLUMN_LEARN_MARK = "mark";
+	public static final String COLUMN_LEARN_TIMES = "times";
+	public static final String COLUMN_LEARN_TOTAL_MARK = "total_mark";
+		
+    /*// Table Create Statements
     // Users table create statement    
     private static final String CREATE_TABLE_USER = "CREATE TABLE "
   	      + TABLE_USER + "(" 
@@ -106,11 +121,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
   	      + "FOREIGN KEY ("+ COLUMN_TEST_USER_ID +") REFERENCES " + TABLE_USER + " ("+ COLUMN_ID +")," 
   	      + "FOREIGN KEY ("+ COLUMN_TEST_LIBRARY_ID +") REFERENCES " + TABLE_LIBRARY + " ("+ COLUMN_ID +")"  	      
   	      + ");";
+  	*/
     /*
     public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);		
 	}
-    
+    */
+	/*
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_TABLE_USER);
@@ -133,13 +150,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 	}
 	*/
     private static final int DATABASE_VERSION = 1;
-    public static final String DB_NAME = "Learner20140301.sqlite3";
+    public static final String DB_NAME = "Learner.sqlite3";
 	//Path to the device folder with databases
     public static String DB_PATH;
     //Database file name
     public SQLiteDatabase database;
     public final Context context;
-    
+    private static final String DB_FORMAT_PATH = "//data//data//%s//databases//";
     public SQLiteDatabase getDb() {
         return database;
     }
@@ -149,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 		this.context = context;
 		 //Write a full path to the databases of your application
 		 String packageName = context.getPackageName();
-		 DB_PATH = String.format("//data//data//%s//databases//", packageName);
+		 DB_PATH = String.format(DB_FORMAT_PATH, packageName);
 		 openDataBase();
     }
     
@@ -158,7 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         this.context = context;
 	     //Write a full path to the databases of your application
 	     String packageName = context.getPackageName();
-	     DB_PATH = String.format("//data//data//%s//databases//", packageName);
+	     DB_PATH = String.format(DB_FORMAT_PATH, packageName);
 	     openDataBase();
     }
     

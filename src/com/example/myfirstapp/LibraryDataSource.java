@@ -55,21 +55,37 @@ public class LibraryDataSource {
 		database.delete(DatabaseHelper.TABLE_LIBRARY, DatabaseHelper.COLUMN_ID + " = " + id, null);
 	}
 	
-	public List<Library> getAllLibrarys(){
-		List<Library> librarys = new ArrayList<Library>();
+	public List<Library> getAllLibraries(){
+		List<Library> libraries = new ArrayList<Library>();
 		
 		Cursor cursor = database.query(DatabaseHelper.TABLE_LIBRARY, allColumns, null, null, null, null, null);
 		
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
 			Library library = cursorToLibrary(cursor);
-			librarys.add(library);
+			libraries.add(library);
 			cursor.moveToNext();
 		}
 		
 		//make sure to close the cursor
 		cursor.close();
-		return librarys;
+		return libraries;
+	}
+	
+	public Library getLibrary(long id){
+		Library library = null;
+		
+		Cursor cursor = database.query(DatabaseHelper.TABLE_LIBRARY, allColumns, DatabaseHelper.COLUMN_ID + " = ?", new String[] { Long.toString(id) }, null, null, null);
+		
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			library = cursorToLibrary(cursor);
+			cursor.moveToNext();
+		}
+		
+		//make sure to close the cursor
+		cursor.close();
+		return library;
 	}
 	
 	private Library cursorToLibrary(Cursor cursor) {
