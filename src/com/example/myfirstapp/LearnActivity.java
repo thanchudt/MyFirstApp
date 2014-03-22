@@ -35,9 +35,9 @@ public class LearnActivity extends Activity{
 		knowledgeDataSource = new KnowledgeDataSource(this);
 		knowledgeDataSource.open();
 		lstKnowledge = knowledgeDataSource.getAllKnowledges();
-		knowledgeDataSource.close();
-				
+		knowledgeDataSource.close();				
 		InitKnowledge();		
+		current_index = -1;
 		imageViewContent = (ImageView) findViewById(R.id.imageViewContent);
 		imageViewDifficultLevel = (ImageView) findViewById(R.id.imageViewDifficultLevel);
 		DrawContent();				
@@ -81,8 +81,7 @@ public class LearnActivity extends Activity{
 	}
 	private void InitKnowledge() {
 		ToKnowledgeDtos();
-		Collections.sort(lstKnowledgeDto, new MarkComparator());
-		current_index = -1;
+		Collections.sort(lstKnowledgeDto, new MarkComparator());		
 		setRealMaxNumberImage();
 		setTextViewUserLevel();
 	}
@@ -122,6 +121,8 @@ public class LearnActivity extends Activity{
 	}
 	private void DrawContent() {				
 		setCurrentIndex();
+		if(current_index < 0)
+			return;
 		String path= "@drawable/" + lstKnowledgeDto.get(current_index).content;
 		int imageResource = getResources().getIdentifier(path, null, getPackageName());
 		Drawable res = getResources().getDrawable(imageResource);		
@@ -147,6 +148,7 @@ public class LearnActivity extends Activity{
 		if(current_index > realMaxNumberImage - 1)
 		{
 			InitKnowledge();
+			current_index=0;
 		}
 	}
 	/*private void DrawContent() {
