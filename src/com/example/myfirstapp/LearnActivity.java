@@ -23,10 +23,12 @@ public class LearnActivity extends Activity{
 	private int current_index;
 	List<Knowledge> lstKnowledge;
 	List<KnowledgeDto> lstKnowledgeDto;
-	int MAX_NUMBER_IMAGE = 45;
+	final static int MAX_NUMBER_IMAGE = 45;
+	final static String MAX_IMAGE_NAME = "img00045.png";
 	int realMaxNumberImage;
 	int userLevel; 
 	long totalMark = 0;
+	final static int CURRENT_USER_ID = 1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -93,17 +95,21 @@ public class LearnActivity extends Activity{
 		int weight = 0;
 		learnDataSource = new LearnDataSource(this);
 		learnDataSource.open();			
-		
-		for(int i=0;i<maxRange;i++)
+		int count = 0;
+		for(int i=0;i<lstKnowledge.size();i++)
 		{
-			Learn learn = learnDataSource.getLearn(1, lstKnowledge.get(i).getId());
+			if(count == maxRange)
+				break;
+			if(MAX_IMAGE_NAME.compareToIgnoreCase(lstKnowledge.get(i).getContent()) < 0)
+				continue;
+			count++;			
+			Learn learn = learnDataSource.getLearn(CURRENT_USER_ID, lstKnowledge.get(i).getId());
 			KnowledgeDto item = new KnowledgeDto();
 			item.id = lstKnowledge.get(i).getId();
 			item.content = lstKnowledge.get(i).getContent();
 			item.category_id = lstKnowledge.get(i).getCategoryId();
 			item.subject_id = lstKnowledge.get(i).getSubjectId();
 			item.mark = -1;
-			item.order = -1 + weight++;
 			item.times = 0;
 			if(learn != null)				
 			{				
@@ -115,6 +121,8 @@ public class LearnActivity extends Activity{
 					totalMark += item.mark;
 				}
 			}
+			if(item.mark == -1)
+				item.order = -1 + weight++;		
 			lstKnowledgeDto.add(item);
 		}
 		learnDataSource.close();
@@ -160,7 +168,7 @@ public class LearnActivity extends Activity{
 		Drawable res = getResources().getDrawable(imageResource);		
 		imageViewContent.setImageDrawable(res);
 		
-		Learn learn = learnDataSource.getLearn(1, lstKnowledge.get(current_index).getId());
+		Learn learn = learnDataSource.getLearn(CURRENT_USER_ID, lstKnowledge.get(current_index).getId());
 		
 		if(learn == null)
 		{
@@ -197,14 +205,14 @@ public class LearnActivity extends Activity{
 	public void remember(View view){		
 		KnowledgeDto item = lstKnowledgeDto.get(current_index);
 		item.times++;		
-		totalMark = totalMark - item.mark + (10 + item.mark) / item.times;
+		totalMark = totalMark - item.mark + (10 + (item.mark == -1 ? 0 : item.mark)) / item.times;
 		item.mark = (10 + item.mark) / item.times;
 		setRealMaxNumberImage();
 		setTextViewUserLevel();
 		Date currentDate = new Date(System.currentTimeMillis());
 		learnDataSource = new LearnDataSource(this);
 		learnDataSource.open();		
-		learnDataSource.createLearn(1, lstKnowledge.get(current_index).getId(), currentDate, 10);
+		learnDataSource.createLearn(CURRENT_USER_ID, lstKnowledgeDto.get(current_index).id, currentDate, 10);
 		learnDataSource.close();
 		DrawContent();
 	}
@@ -212,20 +220,20 @@ public class LearnActivity extends Activity{
 	public void miss(View view){
 		KnowledgeDto item = lstKnowledgeDto.get(current_index);
 		item.times++;		
-		totalMark = totalMark - item.mark + item.mark / (item.times + 1);
+		totalMark = totalMark - item.mark + (item.mark == -1 ? 0 : item.mark) / item.times;
 		item.mark = item.mark / item.times;		
 		setRealMaxNumberImage();
 		setTextViewUserLevel();
 		Date currentDate = new Date(System.currentTimeMillis());
 		learnDataSource = new LearnDataSource(this);
 		learnDataSource.open();	
-		learnDataSource.createLearn(1, lstKnowledge.get(current_index).getId(), currentDate, 0);
+		learnDataSource.createLearn(CURRENT_USER_ID, lstKnowledgeDto.get(current_index).id, currentDate, 0);
 		learnDataSource.close();
 		DrawContent();
 	}
 	
 	@Override
-	protected void onResume() {
+	protected void onResume() {		
 		super.onResume();
 		
 	}

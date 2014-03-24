@@ -13,8 +13,7 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/cong_thuc_hoa" />
+        android:layout_height="wrap_content" />
 	<TextView
         android:id="@+id/textViewDifficultLevel"
         android:layout_width="80dp"
