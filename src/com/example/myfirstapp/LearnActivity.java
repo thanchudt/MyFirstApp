@@ -23,12 +23,15 @@ public class LearnActivity extends Activity{
 	private int current_index;
 	List<Knowledge> lstKnowledge;
 	List<KnowledgeDto> lstKnowledgeDto;
-	final static int MAX_NUMBER_IMAGE = 45;
-	final static String MAX_IMAGE_NAME = "img00045.png";
+	final static int MAX_NUMBER_IMAGE = 7;
+	final static String MAX_IMAGE_NAME = "img00007.png";
 	int realMaxNumberImage;
 	int userLevel; 
+	int userSubLevel;
 	long totalMark = 0;
 	final static int CURRENT_USER_ID = 1;
+	final static int AMOUNT_OF_LEVEL = 4;
+	final static int AMOUNT_OF_SUBLEVEL = 5;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,36 +50,43 @@ public class LearnActivity extends Activity{
 	
 	private void setRealMaxNumberImage(){
 		int maxNumberImage = Math.min(MAX_NUMBER_IMAGE, lstKnowledgeDto.size());
-		if(totalMark < maxNumberImage / 4 * 10){
-			realMaxNumberImage = maxNumberImage / 4;
-			userLevel = 0;
-		}else if(totalMark < maxNumberImage / 2 * 10){
-			realMaxNumberImage = maxNumberImage / 2;
-			userLevel = 1;
-		}else if(totalMark < maxNumberImage * 3 / 4 * 10){
-			realMaxNumberImage = maxNumberImage * 3 / 4;
-			userLevel = 2;
-		}else {
-			realMaxNumberImage = maxNumberImage;
-			userLevel = 3;
-		}
+		long rememberedImage = totalMark / 10;
+		int numberOfImageInALevel = maxNumberImage / AMOUNT_OF_LEVEL;
+		int numberOfImageInASubLevel = maxNumberImage / AMOUNT_OF_LEVEL / AMOUNT_OF_SUBLEVEL;
+		for(int i = 1; i <= AMOUNT_OF_LEVEL; i++){
+			int level = numberOfImageInALevel * i;
+			if(rememberedImage <= level){
+				realMaxNumberImage = level;
+				userLevel = i;
+				userSubLevel = 1;
+				for(int j = 1; j < AMOUNT_OF_SUBLEVEL; j++){
+					int subLevel = level - numberOfImageInASubLevel * j;
+					if(rememberedImage > subLevel){
+						userSubLevel = AMOUNT_OF_SUBLEVEL - j + 1;
+						break;
+					}
+				}
+				break;
+			}
+		}		
 	}
 	
 	private void setTextViewUserLevel()	{
 		TextView t=new TextView(this); 
 	    t=(TextView)findViewById(R.id.textViewUserLevel); 
+	    String subLevelText = Integer.toString(userSubLevel);
 	    switch(userLevel){
-	    case 0:
-	    	t.setText("Level: Beginner");
-	    	break;
 	    case 1:
-	    	t.setText("Level: Intermediate");
+	    	t.setText("Level: Beginner " + subLevelText);
 	    	break;
 	    case 2:
-	    	t.setText("Level: Advanced");
+	    	t.setText("Level: Competent " + subLevelText);
 	    	break;
 	    case 3:
-	    	t.setText("Level: Expert");
+	    	t.setText("Level: Proficient " + subLevelText);
+	    	break;
+	    case 4:
+	    	t.setText("Level: Expert " + subLevelText);
 	    	break;	    
 	    }
 	    
